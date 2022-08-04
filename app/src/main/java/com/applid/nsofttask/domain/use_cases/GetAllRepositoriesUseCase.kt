@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class GetAllRepositoriesUseCase @Inject constructor(
@@ -21,6 +22,8 @@ class GetAllRepositoriesUseCase @Inject constructor(
         } catch (e : HttpException) {
             emit(Resource.Error<List<RepositoryModel>>(message = e.localizedMessage ?: "An unexpected error happen, try again later"))
         } catch (e : IOException) {
+            emit(Resource.Error<List<RepositoryModel>>(message = e.localizedMessage ?: "Error happen, check your internet connection"))
+        } catch (e : UnknownHostException) {
             emit(Resource.Error<List<RepositoryModel>>(message = e.localizedMessage ?: "Error happen, check your internet connection"))
         }
     }
