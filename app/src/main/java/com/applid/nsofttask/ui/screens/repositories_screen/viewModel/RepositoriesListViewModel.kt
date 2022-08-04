@@ -16,13 +16,17 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
+@HiltViewModel
 class RepositoriesListViewModel @Inject constructor(
     private val getAllRepositoriesUseCase: GetAllRepositoriesUseCase
 ) : ViewModel() {
 
     private val _state = mutableStateOf(RepositoriesListState())
     val state: State<RepositoriesListState> = _state
+
+    init {
+        onEvent(RepositoriesListEvent.Init)
+    }
 
     fun onEvent(event : RepositoriesListEvent) {
         when(event) {
@@ -35,9 +39,9 @@ class RepositoriesListViewModel @Inject constructor(
     private fun getAllRepositories() {
        getAllRepositoriesUseCase().onEach { result ->
            when(result) {
-               is Resource.Error -> TODO()
-               is Resource.Loading -> TODO()
-               is Resource.Success -> TODO()
+               is Resource.Error -> _state.value = RepositoriesListState(error = result.message ?: "An unexpected error happen")
+               is Resource.Loading -> _state.value = RepositoriesListState(isLoading = true)
+               is Resource.Success -> _state.value = RepositoriesListState(isLoading = false, repositoriesList = result.data)
            }
        }.launchIn(viewModelScope)
     }

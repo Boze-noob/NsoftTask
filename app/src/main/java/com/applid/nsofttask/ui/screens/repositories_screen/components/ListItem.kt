@@ -17,16 +17,21 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.sp
+import com.applid.nsofttask.domain.models.RepositoryModel
 import com.applid.nsofttask.ui.screens.common.CustomText
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.applid.nsofttask.ui.screens.common.NetworkImage
 
 @Composable
-fun ListItem() {
+fun ListItem(repositoryModel : RepositoryModel) {
     Card(
         modifier = Modifier
             .fillMaxSize()
             .padding(15.dp)
-            .clickable {  },
+            .clickable { },
         elevation = 10.dp
     ) {
         Row(
@@ -40,20 +45,20 @@ fun ListItem() {
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                OwnerInfo()
+                OwnerInfo(repositoryModel = repositoryModel)
             }
             Column(
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                RepositoryDetails()
+                RepositoryDetails(repositoryModel = repositoryModel)
             }
         }
     }
 }
 
 @Composable
-fun OwnerInfo() {
+fun OwnerInfo(repositoryModel : RepositoryModel) {
     Card(
         modifier = Modifier.size(60.dp),
         border = BorderStroke(3.dp, MaterialTheme.colors.secondaryVariant),
@@ -61,27 +66,23 @@ fun OwnerInfo() {
         elevation = 2.dp,
     )
     {
-        Image(
-            painterResource(R.drawable.ic_launcher_foreground),
-            contentDescription = "",
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
-        )
+       NetworkImage(url = repositoryModel.avatar_url)
     }
     Spacer(modifier = Modifier.width(10.dp))
-    CustomText(text = "Owner name", size = 18.sp)
+    CustomText(text = repositoryModel.name, size = 18.sp)
 }
 
 @Composable
-fun RepositoryDetails() {
-    CustomText(text = "Text")
-    CustomText(text = "Text")
-    CustomText(text = "Text")
+fun RepositoryDetails(repositoryModel : RepositoryModel) {
+    CustomText(text = repositoryModel.name)
+    CustomText(text = repositoryModel.description)
+    CustomText(text = repositoryModel.language)
+
     Spacer(modifier = Modifier.height(20.dp))
 
-    CustomText(text = "Text")
-    CustomText(text = "Text")
-    CustomText(text = "Text")
-    CustomText(text = "Text")
+    CustomText(text = repositoryModel.stargazers_count.toString())
+    CustomText(text = repositoryModel.forks_count.toString())
+    CustomText(text = repositoryModel.open_issues.toString())
+    CustomText(text = repositoryModel.watchers_count.toString())
 }
 

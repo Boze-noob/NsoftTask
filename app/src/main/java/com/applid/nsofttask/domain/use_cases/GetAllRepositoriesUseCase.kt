@@ -16,7 +16,7 @@ class GetAllRepositoriesUseCase @Inject constructor(
     operator fun invoke() : Flow<Resource<List<RepositoryModel>>> = flow {
         try{
             emit(Resource.Loading<List<RepositoryModel>>())
-            val result = gitRepository.getAllRepositories().map { it.toRepositoryModel() }
+            val result = gitRepository.getAllRepositories().toRepositoryModel()
             emit(Resource.Success<List<RepositoryModel>>(result))
         } catch (e : HttpException) {
             emit(Resource.Error<List<RepositoryModel>>(message = e.localizedMessage ?: "An unexpected error happen, try again later"))

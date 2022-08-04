@@ -6,5 +6,5 @@ import retrofit2.http.GET
 interface Api {
 
     @GET("search/repositories?q=language:java&order=desc&sort=stars")
-    suspend fun getRepositories() : List<RepositoryModelDto>
+    suspend fun getRepositories() : RepositoryModelDto
 }
