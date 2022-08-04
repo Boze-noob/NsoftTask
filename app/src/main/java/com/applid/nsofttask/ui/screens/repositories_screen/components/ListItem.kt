@@ -21,18 +21,22 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.applid.nsofttask.domain.models.RepositoryModel
 import com.applid.nsofttask.ui.screens.common.CustomText
 import com.applid.nsofttask.ui.screens.common.AutoSizeText
 import com.applid.nsofttask.ui.screens.common.NetworkImage
+import com.applid.nsofttask.ui.screens.navigation.Screen
 
 @Composable
-fun ListItem(repositoryModel : RepositoryModel) {
+fun ListItem(repositoryModel: RepositoryModel, navController: NavController) {
     Card(
         modifier = Modifier
             .fillMaxSize()
             .padding(15.dp)
-            .clickable { },
+            .clickable {
+                navController.navigate(Screen.RepositoryDetailsScreen.route)
+            },
         elevation = 10.dp
     ) {
         Row(
@@ -59,7 +63,7 @@ fun ListItem(repositoryModel : RepositoryModel) {
 }
 
 @Composable
-fun OwnerInfo(repositoryModel : RepositoryModel) {
+fun OwnerInfo(repositoryModel: RepositoryModel) {
     Card(
         modifier = Modifier.size(80.dp),
         border = BorderStroke(3.dp, MaterialTheme.colors.secondaryVariant),
@@ -67,7 +71,7 @@ fun OwnerInfo(repositoryModel : RepositoryModel) {
         elevation = 2.dp,
     )
     {
-       NetworkImage(url = repositoryModel.avatar_url)
+        NetworkImage(url = repositoryModel.avatar_url)
     }
     Spacer(modifier = Modifier.height(8.dp))
     AutoSizeText(text = repositoryModel.name, textStyle = TextStyle(fontSize = 18.sp))
@@ -75,7 +79,7 @@ fun OwnerInfo(repositoryModel : RepositoryModel) {
 }
 
 @Composable
-fun RepositoryDetails(repositoryModel : RepositoryModel) {
+fun RepositoryDetails(repositoryModel: RepositoryModel) {
     CustomText(text = "Repo name:", size = 18.sp)
     CustomText(text = repositoryModel.name)
     Spacer(modifier = Modifier.height(8.dp))
@@ -86,7 +90,7 @@ fun RepositoryDetails(repositoryModel : RepositoryModel) {
 
     CustomText(text = "Language: " + repositoryModel.language)
     CustomText(text = "Stargazers: " + repositoryModel.stargazers_count.toString())
-    CustomText(text = "Forks: " +repositoryModel.forks_count.toString())
+    CustomText(text = "Forks: " + repositoryModel.forks_count.toString())
     CustomText(text = "Issues: " + repositoryModel.open_issues.toString())
     CustomText(text = "Watchers: " + repositoryModel.watchers_count.toString())
 }

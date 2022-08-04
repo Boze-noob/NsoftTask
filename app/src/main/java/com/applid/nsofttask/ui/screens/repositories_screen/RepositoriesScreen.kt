@@ -18,13 +18,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.applid.nsofttask.ui.screens.common.*
 import com.applid.nsofttask.ui.screens.repositories_screen.components.ListItem
 import com.applid.nsofttask.ui.screens.repositories_screen.viewModel.RepositoriesListViewModel
 
 @Composable
 fun RepositoriesScreen(
-    viewModel: RepositoriesListViewModel = hiltViewModel()
+    viewModel: RepositoriesListViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     val state = viewModel.state.value
     val screenWidth = ScreenSize(context = LocalContext.current).getScreenWidth()
@@ -82,7 +84,7 @@ fun RepositoriesScreen(
             ) {
                 LazyColumn {
                     items(state.repositoriesList) {
-                        ListItem(it)
+                        ListItem(repositoryModel = it, navController = navController)
                     }
                 }
             }
