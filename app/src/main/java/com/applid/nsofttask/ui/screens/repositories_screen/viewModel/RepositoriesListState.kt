@@ -4,6 +4,6 @@ import com.applid.nsofttask.domain.models.RepositoryModel
 
 data class RepositoriesListState(
     val isLoading : Boolean = false,
-    val repositoryModel: RepositoryModel? = null,
+    val repositoriesList: List<RepositoryModel>? = null,
     val error : String = "",
 )
