@@ -13,8 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.applid.nsofttask.ui.screens.common.AutoSizeText
 import com.applid.nsofttask.ui.screens.common.CustomText
 import com.applid.nsofttask.ui.screens.common.ScreenSize
 import com.applid.nsofttask.ui.screens.repositories_screen.components.ListItem
@@ -41,11 +45,23 @@ fun RepositoriesScreen(
             )
         }
     else if (state.repositoriesList.isNullOrEmpty())
-        CustomText(text = "No data to show")
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.background),
+            contentAlignment = Alignment.Center
+        ) {
+            AutoSizeText(
+                text = "No data to show",
+                textStyle = TextStyle(fontSize = 30.sp, fontWeight = FontWeight.Bold)
+            )
+        }
     else
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colors.background)) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.background)
+        ) {
             LazyColumn {
                 items(state.repositoriesList) {
                     ListItem(it)
