@@ -18,11 +18,12 @@ import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.applid.nsofttask.domain.models.RepositoryModel
 import com.applid.nsofttask.ui.screens.common.CustomText
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import com.applid.nsofttask.ui.screens.common.AutoSizeText
 import com.applid.nsofttask.ui.screens.common.NetworkImage
 
 @Composable
@@ -39,11 +40,11 @@ fun ListItem(repositoryModel : RepositoryModel) {
                 .padding(vertical = 20.dp, horizontal = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
+            Column(
                 modifier = Modifier
                     .weight(1f),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 OwnerInfo(repositoryModel = repositoryModel)
             }
@@ -60,7 +61,7 @@ fun ListItem(repositoryModel : RepositoryModel) {
 @Composable
 fun OwnerInfo(repositoryModel : RepositoryModel) {
     Card(
-        modifier = Modifier.size(60.dp),
+        modifier = Modifier.size(80.dp),
         border = BorderStroke(3.dp, MaterialTheme.colors.secondaryVariant),
         shape = CircleShape,
         elevation = 2.dp,
@@ -68,21 +69,25 @@ fun OwnerInfo(repositoryModel : RepositoryModel) {
     {
        NetworkImage(url = repositoryModel.avatar_url)
     }
-    Spacer(modifier = Modifier.width(10.dp))
-    CustomText(text = repositoryModel.name, size = 18.sp)
+    Spacer(modifier = Modifier.height(8.dp))
+    AutoSizeText(text = repositoryModel.name, textStyle = TextStyle(fontSize = 18.sp))
+
 }
 
 @Composable
 fun RepositoryDetails(repositoryModel : RepositoryModel) {
+    CustomText(text = "Repo name:", size = 18.sp)
     CustomText(text = repositoryModel.name)
-    CustomText(text = repositoryModel.description)
-    CustomText(text = repositoryModel.language)
+    Spacer(modifier = Modifier.height(8.dp))
+    CustomText(text = "Description:", size = 17.sp)
+    CustomText(text = repositoryModel.description, textAlign = TextAlign.Center)
 
     Spacer(modifier = Modifier.height(20.dp))
 
-    CustomText(text = repositoryModel.stargazers_count.toString())
-    CustomText(text = repositoryModel.forks_count.toString())
-    CustomText(text = repositoryModel.open_issues.toString())
-    CustomText(text = repositoryModel.watchers_count.toString())
+    CustomText(text = "Language: " + repositoryModel.language)
+    CustomText(text = "Stargazers: " + repositoryModel.stargazers_count.toString())
+    CustomText(text = "Forks: " +repositoryModel.forks_count.toString())
+    CustomText(text = "Issues: " + repositoryModel.open_issues.toString())
+    CustomText(text = "Watchers: " + repositoryModel.watchers_count.toString())
 }
 
