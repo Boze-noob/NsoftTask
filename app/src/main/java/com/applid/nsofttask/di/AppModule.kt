@@ -2,8 +2,8 @@ package com.applid.nsofttask.di
 
 import com.applid.nsofttask.common.Constants
 import com.applid.nsofttask.data.api.Api
-import com.applid.nsofttask.data.repositories.GitRepositoryImpl
-import com.applid.nsofttask.domain.repositories.GitRepository
+import com.applid.nsofttask.data.repositories.GitHubRepositoryImpl
+import com.applid.nsofttask.domain.repositories.GitHubRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,8 +28,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideGitRepository(api : Api) : GitRepository {
-        return GitRepositoryImpl(api = api)
+    fun provideGitRepository(api : Api) : GitHubRepository {
+        return GitHubRepositoryImpl(api = api)
     }
 
 }

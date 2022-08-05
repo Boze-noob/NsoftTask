@@ -71,7 +71,7 @@ fun OwnerInfo(repositoryModel: RepositoryModel) {
         elevation = 2.dp,
     )
     {
-        NetworkImage(url = repositoryModel.avatar_url)
+        NetworkImage(url = repositoryModel.avatarUrl)
     }
     Spacer(modifier = Modifier.height(8.dp))
     AutoSizeText(text = repositoryModel.name, textStyle = TextStyle(fontSize = 18.sp))
@@ -89,9 +89,9 @@ fun RepositoryDetails(repositoryModel: RepositoryModel) {
     Spacer(modifier = Modifier.height(20.dp))
 
     CustomText(text = "Language: " + repositoryModel.language)
-    CustomText(text = "Stargazers: " + repositoryModel.stargazers_count.toString())
-    CustomText(text = "Forks: " + repositoryModel.forks_count.toString())
-    CustomText(text = "Issues: " + repositoryModel.open_issues.toString())
-    CustomText(text = "Watchers: " + repositoryModel.watchers_count.toString())
+    CustomText(text = "Stargazers: " + repositoryModel.stargazersCount.toString())
+    CustomText(text = "Forks: " + repositoryModel.forksCount.toString())
+    CustomText(text = "Issues: " + repositoryModel.openIssues.toString())
+    CustomText(text = "Watchers: " + repositoryModel.watchersCount.toString())
 }
 

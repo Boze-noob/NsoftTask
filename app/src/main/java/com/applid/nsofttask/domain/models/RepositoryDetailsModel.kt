@@ -1,6 +1,6 @@
 package com.applid.nsofttask.domain.models
 
-data class RepositoryModel(
+data class RepositoryDetailsModel(
     val login : String,
     val avatarUrl : String,
     val name : String,
@@ -10,4 +10,8 @@ data class RepositoryModel(
     val forksCount : Int,
     val openIssues : Int,
     val watchersCount : Int,
+    val defaultBranch : String,
+    val createdAt : String,
+    val updatedAt : String,
+    val contributors : List<ContributorsModel>
 )
