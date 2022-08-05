@@ -1,6 +1,6 @@
 package com.applid.nsofttask.domain.models
 
-data class ContributorsModel(
+data class RepositoryContributorModel(
     val avatarUrl : String,
     val login : String,
 )

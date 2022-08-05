@@ -1,6 +1,8 @@
 package com.applid.nsofttask.data.api.dto
 
-data class RepositoryContributorsModelDto(
+import com.applid.nsofttask.domain.models.RepositoryContributorModel
+
+data class RepositoryContributorModelDto(
     val avatar_url: String,
     val contributions: Int,
     val events_url: String,
@@ -21,3 +23,10 @@ data class RepositoryContributorsModelDto(
     val type: String,
     val url: String
 )
+
+fun RepositoryContributorModelDto.toRepositoryContributorModel() : RepositoryContributorModel {
+    return RepositoryContributorModel(
+        avatarUrl = avatar_url,
+        login = login
+    )
+}
