@@ -11,11 +11,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.applid.nsofttask.ui.screens.common.CustomText
+import com.applid.nsofttask.ui.screens.common.ScreenSize
 import com.applid.nsofttask.ui.screens.common.SnackBar
 import com.applid.nsofttask.ui.screens.common.UiEvent
 import com.applid.nsofttask.ui.screens.repository_details_screen.components.ContributorItem
@@ -31,6 +33,8 @@ fun RepositoryDetailsScreen(
     val state = viewModel.state.value
     val uriHandler = LocalUriHandler.current
     val scaffoldState = rememberScaffoldState()
+    val screenWidth = ScreenSize(context = LocalContext.current).getScreenWidth()
+
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
@@ -49,17 +53,28 @@ fun RepositoryDetailsScreen(
             SnackbarHost(it) { data ->
                 SnackBar(data = data)
             }
-        },) {
-        if(state.isLoading) {
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.background)) {
-                CircularProgressIndicator(strokeWidth = 5.dp, color = Color.White)
+        },
+    ) {
+        if (state.isLoading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colors.background),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(
+                    strokeWidth = 5.dp,
+                    color = Color.White,
+                    modifier = Modifier.width((screenWidth / 2.5).dp)
+                )
             }
-        } else if(state.repositoryDetailsModel == null) {
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.background), contentAlignment = Alignment.Center) {
+        } else if (state.repositoryDetailsModel == null) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colors.background),
+                contentAlignment = Alignment.Center
+            ) {
                 CustomText(text = "No data to show", size = 30.sp)
             }
         } else {
@@ -79,8 +94,8 @@ fun RepositoryDetailsScreen(
                 }
 
                 item {
-                    CustomText(text = "Contributors details")
-                    Spacer(modifier = Modifier.height(10.dp))
+                    CustomText(text = "Contributors", size = 20.sp)
+                    Spacer(modifier = Modifier.height(15.dp))
                 }
 
                 items(repositoryDetailsModel.contributors) {
@@ -89,10 +104,15 @@ fun RepositoryDetailsScreen(
 
                 item {
                     Spacer(modifier = Modifier.height(30.dp))
-                    Button(onClick = {
-
-                        uriHandler.openUri(repositoryDetailsModel.htmlUrl) }) {
-                        Text(text = "Click me")
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                        Button(
+                            onClick = {
+                                uriHandler.openUri(repositoryDetailsModel.htmlUrl)
+                            },
+                            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+                        ) {
+                            CustomText(text = "Go to github", color = Color.Magenta, size = 20.sp)
+                        }
                     }
                 }
             }

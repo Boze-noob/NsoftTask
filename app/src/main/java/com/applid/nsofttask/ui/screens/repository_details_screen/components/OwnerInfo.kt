@@ -12,9 +12,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.applid.nsofttask.R
 import com.applid.nsofttask.domain.models.RepositoryDetailsModel
+import com.applid.nsofttask.ui.screens.common.CustomText
 import com.applid.nsofttask.ui.screens.common.NetworkImage
 import com.applid.nsofttask.ui.screens.common.ScreenSize
 
@@ -30,9 +33,11 @@ fun OwnerInfo(
             .height((screenHeight / 3.5).dp),
         contentAlignment = Alignment.Center
     ) {
-        Column {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Card(
-                modifier = Modifier.size(80.dp),
+                modifier = Modifier.size(120.dp),
                 border = BorderStroke(3.dp, MaterialTheme.colors.secondaryVariant),
                 shape = CircleShape,
                 elevation = 2.dp,
@@ -41,7 +46,7 @@ fun OwnerInfo(
                 NetworkImage(url = repositoryDetailsModel.avatarUrl)
             }
             Spacer(modifier = Modifier.height(8.dp))
-            Text(repositoryDetailsModel.login)
+            CustomText(text = repositoryDetailsModel.login, textAlign = TextAlign.Center, size = 22.sp)
         }
     }
 }

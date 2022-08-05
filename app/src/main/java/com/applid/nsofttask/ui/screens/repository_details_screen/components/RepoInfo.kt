@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.applid.nsofttask.domain.models.RepositoryDetailsModel
 import com.applid.nsofttask.ui.screens.common.CustomText
 
@@ -12,7 +13,7 @@ import com.applid.nsofttask.ui.screens.common.CustomText
 fun RepoInfo(
     repositoryDetailsModel: RepositoryDetailsModel
 ) {
-    CustomText(text = "Repository details")
+    CustomText(text = "Repository details", size = 20.sp)
     Spacer(modifier = Modifier.height(10.dp))
 
     //I could make list of an object and list of description to reduce boilerplate code but I choose safe way
