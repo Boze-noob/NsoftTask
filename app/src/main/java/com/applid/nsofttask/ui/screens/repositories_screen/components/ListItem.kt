@@ -27,15 +27,13 @@ import com.applid.nsofttask.ui.screens.repository_details_screen.viewModel.Repos
 fun ListItem(
     repositoryModel: RepositoryModel,
     navController: NavController,
-    repositoryDetailsViewModel: RepositoryDetailsViewModel = hiltViewModel()
 ) {
     Card(
         modifier = Modifier
             .fillMaxSize()
             .padding(15.dp)
             .clickable {
-                repositoryDetailsViewModel.onEvent(RepositoryDetailsEvent.GetRepositoryDetails(owner = repositoryModel.login, name = repositoryModel.name))
-                navController.navigate(Screen.RepositoryDetailsScreen.route)
+                navController.navigate(Screen.RepositoryDetailsScreen.route + "?owner=${repositoryModel.login}&name=${repositoryModel.name}")
             },
         elevation = 10.dp
     ) {

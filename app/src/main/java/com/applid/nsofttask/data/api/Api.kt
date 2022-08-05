@@ -1,10 +1,11 @@
 package com.applid.nsofttask.data.api
 
-import com.applid.nsofttask.data.api.dto.RepositoryContributorsModelDto
+import com.applid.nsofttask.data.api.dto.RepositoryContributorModelDto
 import com.applid.nsofttask.data.api.dto.RepositoryDetailsModelDto
 import com.applid.nsofttask.data.api.dto.RepositoryModelDto
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Url
 
 interface Api {
 
@@ -17,6 +18,6 @@ interface Api {
         @Path("name") name: String
     ): RepositoryDetailsModelDto
 
-    @GET("{contributorsUrl}")
-    suspend fun getRepositoryContributors(@Path("contributorsUrl") contributorsUrl: String): RepositoryContributorsModelDto
+    @GET()
+    suspend fun getRepositoryContributors(@Url contributorsUrl: String): List<RepositoryContributorModelDto>
 }

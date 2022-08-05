@@ -1,5 +1,6 @@
 package com.applid.nsofttask.domain.use_cases
 
+import android.util.Log
 import com.applid.nsofttask.common.Resource
 import com.applid.nsofttask.data.api.dto.toRepositoryContributorModel
 import com.applid.nsofttask.data.api.dto.toRepositoryDetailsModel
@@ -19,11 +20,11 @@ class GetRepositoryDetailsUseCase @Inject constructor(
         try {
             emit(Resource.Loading<RepositoryDetailsModel>())
             val repositoryDetailsModelDto = gitHubRepository.getRepositoryDetails(owner = owner, name = name )
-            val result = repositoryDetailsModelDto.toRepositoryDetailsModel()
+            var result = repositoryDetailsModelDto.toRepositoryDetailsModel()
             if(repositoryDetailsModelDto.contributors_url.isNotEmpty())
             {
                 val contributorsDto = gitHubRepository.getRepositoryContributors(repositoryDetailsModelDto.contributors_url)
-                result.copy(contributors = contributorsDto.map { it.toRepositoryContributorModel() })
+                result.contributors = contributorsDto.map { it.toRepositoryContributorModel() }
             }
             emit(Resource.Success<RepositoryDetailsModel>(result))
         } catch (e : HttpException) {

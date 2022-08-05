@@ -13,6 +13,6 @@ data class RepositoryDetailsModel(
     val defaultBranch : String,
     val createdAt : String,
     val updatedAt : String,
-    val contributors : List<RepositoryContributorModel>?,
+    var contributors : List<RepositoryContributorModel> = emptyList(),
     val htmlUrl : String
 )

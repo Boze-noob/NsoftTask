@@ -2,6 +2,7 @@ package com.applid.nsofttask.ui.screens.repository_details_screen.viewModel
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.applid.nsofttask.common.Resource
@@ -17,13 +18,27 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RepositoryDetailsViewModel @Inject constructor(
-    private val getRepositoryDetailsUseCase: GetRepositoryDetailsUseCase
+    private val getRepositoryDetailsUseCase: GetRepositoryDetailsUseCase,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val _state = mutableStateOf(RepositoryDetailsState())
     val state: State<RepositoryDetailsState> = _state
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent  = _uiEvent.receiveAsFlow()
+
+    init {
+        var repositoryOwner: String? = null
+        var repositoryName: String? = null
+
+        savedStateHandle.get<String>("owner")?.let { repositoryOwner = it
+        }
+        savedStateHandle.get<String>("name")?.let { repositoryName = it
+        }
+        if(repositoryName != null && repositoryName != null) {
+            onEvent(RepositoryDetailsEvent.GetRepositoryDetails(owner = repositoryOwner!!, name = repositoryName!!))
+        }
+    }
 
     fun onEvent(event : RepositoryDetailsEvent) {
         when(event) {
@@ -43,8 +58,12 @@ class RepositoryDetailsViewModel @Inject constructor(
                         return@launch
                     }
                 }
-                is Resource.Loading -> _state.value = RepositoryDetailsState(isLoading = true)
-                is Resource.Success -> _state.value = RepositoryDetailsState(isLoading = false, repositoryDetailsModel = result.data)
+                is Resource.Loading -> {
+                    _state.value = RepositoryDetailsState(isLoading = true)
+                }
+                is Resource.Success -> {
+                    _state.value = RepositoryDetailsState(isLoading = false, repositoryDetailsModel = result.data)
+                }
             }
         }.launchIn(viewModelScope)
     }

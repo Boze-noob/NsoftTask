@@ -34,7 +34,7 @@ fun RepositoryDetailsModelDto.toRepositoryDetailsModel(): RepositoryDetailsModel
         defaultBranch = default_branch,
         createdAt = created_at.toMMDDYY(),
         updatedAt = updated_at.toMMDDYY(),
-        contributors = if (!contributors.isNullOrEmpty()) contributors.map { it -> it.toRepositoryContributorModel() } else null,
+        contributors = if (!contributors.isNullOrEmpty()) contributors.map { it -> it.toRepositoryContributorModel() } else emptyList(),
         htmlUrl = html_url
     )
 }

@@ -1,7 +1,7 @@
 package com.applid.nsofttask.data.repositories
 
 import com.applid.nsofttask.data.api.Api
-import com.applid.nsofttask.data.api.dto.RepositoryContributorsModelDto
+import com.applid.nsofttask.data.api.dto.RepositoryContributorModelDto
 import com.applid.nsofttask.data.api.dto.RepositoryDetailsModelDto
 import com.applid.nsofttask.data.api.dto.RepositoryModelDto
 import com.applid.nsofttask.domain.repositories.GitHubRepository
@@ -16,7 +16,7 @@ class GitHubRepositoryImpl @Inject constructor(private val api: Api) : GitHubRep
         return api.getRepositoryDetails(owner = owner, name = name)
     }
 
-    override suspend fun getRepositoryContributors(contributorsUrl : String): RepositoryContributorsModelDto {
+    override suspend fun getRepositoryContributors(contributorsUrl : String): List<RepositoryContributorModelDto> {
         return api.getRepositoryContributors(contributorsUrl = contributorsUrl)
     }
 
