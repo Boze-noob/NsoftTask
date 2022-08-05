@@ -1,49 +1,74 @@
 package com.applid.nsofttask.ui.screens.repository_details_screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.applid.nsofttask.ui.screens.common.CustomText
 import com.applid.nsofttask.ui.screens.repository_details_screen.components.ContributorItem
 import com.applid.nsofttask.ui.screens.repository_details_screen.components.OwnerInfo
 import com.applid.nsofttask.ui.screens.repository_details_screen.components.RepoInfo
+import com.applid.nsofttask.ui.screens.repository_details_screen.viewModel.RepositoryDetailsViewModel
 
 @Composable
 fun RepositoryDetailsScreen(
-    navController: NavController
+    viewModel: RepositoryDetailsViewModel = hiltViewModel(),
 ) {
-    LazyColumn {
+    val state = viewModel.state.value
+    val uriHandler = LocalUriHandler.current
 
-        item {
-            OwnerInfo()
-            Spacer(modifier = Modifier.height(20.dp))
-            Divider(color = Color.Blue, thickness = 1.dp)
+    if(state.isLoading) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.background)) {
+            CircularProgressIndicator(strokeWidth = 5.dp, color = Color.White)
         }
-
-        item {
-            RepoInfo()
-            Spacer(modifier = Modifier.height(20.dp))
-            Divider(color = Color.Blue, thickness = 1.dp)
+    } else if(state.repositoryDetailsModel == null) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.background)) {
+            CustomText(text = "No data to show", size = 30.sp)
         }
+    } else {
+        val repositoryDetailsModel = state.repositoryDetailsModel
+        LazyColumn {
 
-        item {
-            CustomText(text = "Contributors details")
-            Spacer(modifier = Modifier.height(10.dp))
-        }
+            item {
+                OwnerInfo(repositoryDetailsModel = repositoryDetailsModel)
+                Spacer(modifier = Modifier.height(20.dp))
+                Divider(color = Color.Blue, thickness = 1.dp)
+            }
 
-        items(5) { index ->
-            ContributorItem()
-        }
+            item {
+                RepoInfo(repositoryDetailsModel = repositoryDetailsModel)
+                Spacer(modifier = Modifier.height(20.dp))
+                Divider(color = Color.Blue, thickness = 1.dp)
+            }
 
-        item {
-            Spacer(modifier = Modifier.height(30.dp))
-            Button(onClick = { /*TODO*/ }) {
-                Text(text = "Click me")
+            item {
+                CustomText(text = "Contributors details")
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+
+            items(repositoryDetailsModel.contributors) {
+                ContributorItem(repositoryContributorModel = it)
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(30.dp))
+                Button(onClick = {
+
+                    uriHandler.openUri(repositoryDetailsModel.htmlUrl) }) {
+                    Text(text = "Click me")
+                }
             }
         }
     }

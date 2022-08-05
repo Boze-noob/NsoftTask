@@ -13,5 +13,6 @@ data class RepositoryDetailsModel(
     val defaultBranch : String,
     val createdAt : String,
     val updatedAt : String,
-    val contributors : List<RepositoryContributorModel>?
+    val contributors : List<RepositoryContributorModel>?,
+    val htmlUrl : String
 )

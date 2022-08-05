@@ -15,10 +15,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.applid.nsofttask.R
+import com.applid.nsofttask.domain.models.RepositoryContributorModel
 import com.applid.nsofttask.ui.screens.common.AutoSizeText
+import com.applid.nsofttask.ui.screens.common.NetworkImage
 
 @Composable
-fun ContributorItem() {
+fun ContributorItem(
+    repositoryContributorModel: RepositoryContributorModel
+) {
+
     Card(
         modifier = Modifier.size(80.dp),
         border = BorderStroke(3.dp, MaterialTheme.colors.secondaryVariant),
@@ -26,8 +31,8 @@ fun ContributorItem() {
         elevation = 2.dp,
     )
     {
-        Image(painter = painterResource(id = R.drawable.ic_launcher_background), contentDescription = "")
+        NetworkImage(url = repositoryContributorModel.avatarUrl)
     }
     Spacer(modifier = Modifier.height(8.dp))
-    AutoSizeText(text = "This is contributor name", textStyle = TextStyle(fontSize = 18.sp))
+    AutoSizeText(text = "Contributor name ${repositoryContributorModel.login}", textStyle = TextStyle(fontSize = 18.sp))
 }

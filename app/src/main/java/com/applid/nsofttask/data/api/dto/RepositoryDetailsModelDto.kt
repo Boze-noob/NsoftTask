@@ -16,7 +16,8 @@ data class RepositoryDetailsModelDto(
     val created_at: String,
     val updated_at: String,
     val contributors_url: String,
-    val contributors: List<RepositoryContributorModelDto>?
+    val contributors: List<RepositoryContributorModelDto>?,
+    val html_url : String
 )
 
 fun RepositoryDetailsModelDto.toRepositoryDetailsModel(): RepositoryDetailsModel {
@@ -33,6 +34,7 @@ fun RepositoryDetailsModelDto.toRepositoryDetailsModel(): RepositoryDetailsModel
         defaultBranch = default_branch,
         createdAt = created_at.toMMDDYY(),
         updatedAt = updated_at.toMMDDYY(),
-        contributors = if (!contributors.isNullOrEmpty()) contributors.map { it -> it.toRepositoryContributorModel() } else null
+        contributors = if (!contributors.isNullOrEmpty()) contributors.map { it -> it.toRepositoryContributorModel() } else null,
+        htmlUrl = html_url
     )
 }

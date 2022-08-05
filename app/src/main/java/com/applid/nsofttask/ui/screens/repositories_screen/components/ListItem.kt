@@ -6,35 +6,35 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.applid.nsofttask.R
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.applid.nsofttask.domain.models.RepositoryModel
 import com.applid.nsofttask.ui.screens.common.CustomText
 import com.applid.nsofttask.ui.screens.common.AutoSizeText
 import com.applid.nsofttask.ui.screens.common.NetworkImage
 import com.applid.nsofttask.ui.screens.navigation.Screen
+import com.applid.nsofttask.ui.screens.repository_details_screen.viewModel.RepositoryDetailsViewModel
+import com.applid.nsofttask.ui.screens.repository_details_screen.viewModel.RepositoryDetailsEvent
 
 @Composable
-fun ListItem(repositoryModel: RepositoryModel, navController: NavController) {
+fun ListItem(
+    repositoryModel: RepositoryModel,
+    navController: NavController,
+    repositoryDetailsViewModel: RepositoryDetailsViewModel = hiltViewModel()
+) {
     Card(
         modifier = Modifier
             .fillMaxSize()
             .padding(15.dp)
             .clickable {
+                repositoryDetailsViewModel.onEvent(RepositoryDetailsEvent.GetRepositoryDetails(owner = repositoryModel.login, name = repositoryModel.name))
                 navController.navigate(Screen.RepositoryDetailsScreen.route)
             },
         elevation = 10.dp

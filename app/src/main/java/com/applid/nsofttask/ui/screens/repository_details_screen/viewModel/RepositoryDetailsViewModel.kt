@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RepositoryDetailViewModel @Inject constructor(
+class RepositoryDetailsViewModel @Inject constructor(
     private val getRepositoryDetailsUseCase: GetRepositoryDetailsUseCase
 ) : ViewModel() {
     private val _state = mutableStateOf(RepositoryDetailsState())

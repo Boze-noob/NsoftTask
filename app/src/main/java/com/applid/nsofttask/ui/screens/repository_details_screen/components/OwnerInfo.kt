@@ -14,10 +14,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.applid.nsofttask.R
+import com.applid.nsofttask.domain.models.RepositoryDetailsModel
+import com.applid.nsofttask.ui.screens.common.NetworkImage
 import com.applid.nsofttask.ui.screens.common.ScreenSize
 
 @Composable
-fun OwnerInfo() {
+fun OwnerInfo(
+    repositoryDetailsModel : RepositoryDetailsModel
+) {
     val screenHeight = ScreenSize(LocalContext.current).getScreenHeight()
 
     Box(
@@ -34,10 +38,10 @@ fun OwnerInfo() {
                 elevation = 2.dp,
             )
             {
-                Image(painter = painterResource(R.drawable.ic_launcher_background), contentDescription = "")
+                NetworkImage(url = repositoryDetailsModel.avatarUrl)
             }
             Spacer(modifier = Modifier.height(8.dp))
-            Text("User name")
+            Text(repositoryDetailsModel.login)
         }
     }
 }
