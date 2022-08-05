@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun SearchBar(
-    text: String = "Text",
+    text: String,
     onTextChange: (String) -> Unit,
     onCloseClicked: () -> Unit,
     onSearchClicked: (String) -> Unit,
@@ -52,7 +52,9 @@ fun SearchBar(
                 IconButton(
                     modifier = Modifier
                         .alpha(ContentAlpha.medium),
-                    onClick = {}
+                    onClick = {
+                        onSearchClicked(text)
+                    }
                 ) {
                     Icon(
                         imageVector = Icons.Default.Search,
@@ -64,11 +66,7 @@ fun SearchBar(
             trailingIcon = {
                 IconButton(
                     onClick = {
-                        if (text.isNotEmpty()) {
-                            onTextChange("")
-                        } else {
                             onCloseClicked()
-                        }
                     }
                 ) {
                     Icon(

@@ -6,6 +6,7 @@ import com.applid.nsofttask.data.api.dto.RepositoryModelDto
 
 interface GitHubRepository {
     suspend fun getAllRepositories() : RepositoryModelDto
+    suspend fun getRepositoriesByName(name: String) : RepositoryModelDto
     suspend fun getRepositoryDetails(owner : String, name : String) : RepositoryDetailsModelDto
     suspend fun getRepositoryContributors(contributorsUrl : String) : List<RepositoryContributorModelDto>
 }
