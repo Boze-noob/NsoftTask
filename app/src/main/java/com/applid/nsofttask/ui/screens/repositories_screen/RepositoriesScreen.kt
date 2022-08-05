@@ -1,9 +1,7 @@
 package com.applid.nsofttask.ui.screens.repositories_screen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
@@ -21,6 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.applid.nsofttask.ui.screens.common.*
 import com.applid.nsofttask.ui.screens.repositories_screen.components.ListItem
+import com.applid.nsofttask.ui.screens.repositories_screen.components.SearchBar
 import com.applid.nsofttask.ui.screens.repositories_screen.viewModel.RepositoriesListViewModel
 
 @Composable
@@ -82,9 +81,13 @@ fun RepositoriesScreen(
                     .fillMaxSize()
                     .background(MaterialTheme.colors.background)
             ) {
-                LazyColumn {
-                    items(state.repositoriesList) {
-                        ListItem(repositoryModel = it, navController = navController)
+                Column() {
+                    SearchBar(onTextChange = {/*TODO*/}, onCloseClicked = { /*TODO*/ }, onSearchClicked = {/*TODO*/})
+                    Spacer(modifier = Modifier.height(20.dp))
+                    LazyColumn {
+                        items(state.repositoriesList) {
+                            ListItem(repositoryModel = it, navController = navController)
+                        }
                     }
                 }
             }

@@ -1,6 +1,5 @@
 package com.applid.nsofttask.ui.screens.repository_details_screen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -23,7 +22,6 @@ import com.applid.nsofttask.ui.screens.common.UiEvent
 import com.applid.nsofttask.ui.screens.repository_details_screen.components.ContributorItem
 import com.applid.nsofttask.ui.screens.repository_details_screen.components.OwnerInfo
 import com.applid.nsofttask.ui.screens.repository_details_screen.components.RepoInfo
-import com.applid.nsofttask.ui.screens.repository_details_screen.viewModel.RepositoryDetailsEvent
 import com.applid.nsofttask.ui.screens.repository_details_screen.viewModel.RepositoryDetailsViewModel
 
 @Composable
