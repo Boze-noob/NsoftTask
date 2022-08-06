@@ -52,7 +52,10 @@ fun RepositoriesScreen(
         },
         topBar = {
             SearchBar(
-                onTextChange = { viewModel.searchTxt = it },
+                onTextChange = {
+                    viewModel.searchTxt = it
+                    viewModel.onEvent(RepositoriesListEvent.GetByName)
+                },
                 onCloseClicked = {
                     viewModel.searchTxt = ""
                     viewModel.onEvent(RepositoriesListEvent.Init)
