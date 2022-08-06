@@ -10,11 +10,11 @@ import retrofit2.http.Url
 
 interface Api {
 
-    @GET("search/repositories?q=language:java&order=desc&sort=stars")
+    @GET("search/repositories?q=language:kotlin&order=desc&sort=stars")
     suspend fun getRepositories(): RepositoryModelDto
 
     @GET("search/repositories")
-    suspend fun getRepositoriesByName(@Query("q") name : String, @Query("language") language : String, @Query("sort") sort : String, @Query("order") order: String) : RepositoryModelDto
+    suspend fun getRepositoriesByName(@Query("q") name : String) : RepositoryModelDto
 
     @GET("repos/{owner}/{name}")
     suspend fun getRepositoryDetails(

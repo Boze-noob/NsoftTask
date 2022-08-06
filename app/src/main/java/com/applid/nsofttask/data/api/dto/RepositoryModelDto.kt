@@ -1,5 +1,6 @@
 package com.applid.nsofttask.data.api.dto
 
+import com.applid.nsofttask.common.extensions.value
 import com.applid.nsofttask.domain.models.RepositoryModel
 
 data class RepositoryModelDto(
@@ -22,15 +23,15 @@ data class Item(
 fun RepositoryModelDto.toRepositoryModel() : List<RepositoryModel> {
 
     return items.map { it ->   RepositoryModel(
-        login = it.owner.login,
-        avatarUrl = it.owner.avatar_url,
-        name = it.name,
-        description = it.description,
-        language = it.language,
-        stargazersCount = it.stargazers_count,
-        forksCount = it.forks_count,
-        openIssues = it.open_issues,
-        watchersCount = it.watchers_count
+        login = it.owner.login.value(),
+        avatarUrl = it.owner.avatar_url.value(),
+        name = it.name.value(),
+        description = it.description.value(),
+        language = it.language.value(),
+        stargazersCount = it.stargazers_count.value(),
+        forksCount = it.forks_count.value(),
+        openIssues = it.open_issues.value(),
+        watchersCount = it.watchers_count.value()
     )}
 
 }

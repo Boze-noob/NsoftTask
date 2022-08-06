@@ -1,6 +1,7 @@
 package com.applid.nsofttask.data.api.dto
 
 import com.applid.nsofttask.common.extensions.toMMDDYY
+import com.applid.nsofttask.common.extensions.value
 import com.applid.nsofttask.domain.models.RepositoryDetailsModel
 
 data class RepositoryDetailsModelDto(
@@ -22,19 +23,19 @@ data class RepositoryDetailsModelDto(
 
 fun RepositoryDetailsModelDto.toRepositoryDetailsModel(): RepositoryDetailsModel {
     return RepositoryDetailsModel(
-        login = owner.login,
-        avatarUrl = owner.avatar_url,
-        name = name,
-        description = description,
-        language = language,
-        stargazersCount = stargazers_count,
-        forksCount = forks_count,
-        openIssues = open_issues,
-        watchersCount = watchers_count,
-        defaultBranch = default_branch,
-        createdAt = created_at.toMMDDYY(),
-        updatedAt = updated_at.toMMDDYY(),
+        login = owner.login.value(),
+        avatarUrl = owner.avatar_url.value(),
+        name = name.value(),
+        description = description.value(),
+        language = language.value(),
+        stargazersCount = stargazers_count.value(),
+        forksCount = forks_count.value(),
+        openIssues = open_issues.value(),
+        watchersCount = watchers_count.value(),
+        defaultBranch = default_branch.value(),
+        createdAt = created_at.toMMDDYY().value(),
+        updatedAt = updated_at.toMMDDYY().value(),
         contributors = if (!contributors.isNullOrEmpty()) contributors.map { it -> it.toRepositoryContributorModel() } else emptyList(),
-        htmlUrl = html_url
+        htmlUrl = html_url.value()
     )
 }

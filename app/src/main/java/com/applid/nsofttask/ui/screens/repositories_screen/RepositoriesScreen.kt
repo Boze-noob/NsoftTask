@@ -50,6 +50,17 @@ fun RepositoriesScreen(
                 SnackBar(data = data)
             }
         },
+        topBar ={
+            SearchBar(
+                onTextChange = { viewModel.searchTxt = it },
+                onCloseClicked = {
+                    viewModel.searchTxt = ""
+                    viewModel.onEvent(RepositoriesListEvent.Init)
+                                 },
+                onSearchClicked = { viewModel.onEvent(RepositoriesListEvent.GetByName) },
+                text = viewModel.searchTxt
+            )
+        }
     ) {
         if (state.isLoading)
             Box(
@@ -83,12 +94,6 @@ fun RepositoriesScreen(
                     .background(MaterialTheme.colors.background)
             ) {
                 Column() {
-                    SearchBar(
-                        onTextChange = { viewModel.searchTxt = it },
-                        onCloseClicked = { viewModel.searchTxt = "" },
-                        onSearchClicked = { viewModel.onEvent(RepositoriesListEvent.GetByName) },
-                        text = viewModel.searchTxt
-                    )
                     Spacer(modifier = Modifier.height(20.dp))
                     LazyColumn {
                         items(state.repositoriesList) {

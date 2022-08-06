@@ -9,3 +9,8 @@ fun String.toMMDDYY() : String {
     val dtf = DateTimeFormatter.ofPattern("MMM dd, uuuu", Locale.ENGLISH)
     return dtf.format(odt)
 }
+
+fun String?.value() : String {
+    if(this == null) return ""
+    else return this
+}

@@ -1,5 +1,6 @@
 package com.applid.nsofttask.data.api.dto
 
+import com.applid.nsofttask.common.extensions.value
 import com.applid.nsofttask.domain.models.RepositoryContributorModel
 
 data class RepositoryContributorModelDto(
@@ -26,7 +27,7 @@ data class RepositoryContributorModelDto(
 
 fun RepositoryContributorModelDto.toRepositoryContributorModel() : RepositoryContributorModel {
     return RepositoryContributorModel(
-        avatarUrl = avatar_url,
-        login = login
+        avatarUrl = avatar_url.value(),
+        login = login.value()
     )
 }

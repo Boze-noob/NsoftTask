@@ -72,7 +72,7 @@ fun OwnerInfo(repositoryModel: RepositoryModel) {
         NetworkImage(url = repositoryModel.avatarUrl)
     }
     Spacer(modifier = Modifier.height(8.dp))
-    AutoSizeText(text = repositoryModel.name, textStyle = TextStyle(fontSize = 18.sp))
+    AutoSizeText(text = repositoryModel.login, textStyle = TextStyle(fontSize = 18.sp))
 
 }
 

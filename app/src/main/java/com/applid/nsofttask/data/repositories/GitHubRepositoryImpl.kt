@@ -1,6 +1,5 @@
 package com.applid.nsofttask.data.repositories
 
-import android.util.Log
 import com.applid.nsofttask.data.api.Api
 import com.applid.nsofttask.data.api.dto.RepositoryContributorModelDto
 import com.applid.nsofttask.data.api.dto.RepositoryDetailsModelDto
@@ -14,8 +13,7 @@ class GitHubRepositoryImpl @Inject constructor(private val api: Api) : GitHubRep
     }
 
     override suspend fun getRepositoriesByName(name: String): RepositoryModelDto {
-        Log.d("Tag", "we are searching by $name")
-        return api.getRepositoriesByName(name = name, language = "kotlin", order = "desc", sort = "stars")
+        return api.getRepositoriesByName(name = "$name+language:kotlin+in:name,description")
     }
 
     override suspend fun getRepositoryDetails(owner : String, name : String): RepositoryDetailsModelDto {
