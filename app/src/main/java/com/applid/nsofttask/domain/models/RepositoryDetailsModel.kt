@@ -1,18 +1,18 @@
 package com.applid.nsofttask.domain.models
 
 data class RepositoryDetailsModel(
-    val login : String,
-    val avatarUrl : String,
-    val name : String,
-    val description : String,
-    val language : String,
-    val stargazersCount : Int,
-    val forksCount : Int,
-    val openIssues : Int,
-    val watchersCount : Int,
-    val defaultBranch : String,
-    val createdAt : String,
-    val updatedAt : String,
-    var contributors : List<RepositoryContributorModel> = emptyList(),
-    val htmlUrl : String
+    val login: String,
+    val avatarUrl: String,
+    val name: String,
+    val description: String,
+    val language: String,
+    val stargazersCount: Int,
+    val forksCount: Int,
+    val openIssues: Int,
+    val watchersCount: Int,
+    val defaultBranch: String,
+    val createdAt: String,
+    val updatedAt: String,
+    var contributors: List<RepositoryContributorModel> = emptyList(),
+    val htmlUrl: String
 )

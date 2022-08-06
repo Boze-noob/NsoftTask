@@ -123,7 +123,7 @@ fun RepositoryDetailsScreen(
                             },
                             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
                         ) {
-                            CustomText(text = "Go to github", color = Color.Magenta, size = 20.sp)
+                            CustomText(text = "Go to github", color = Color.Black, size = 20.sp)
                         }
                     }
                 }
