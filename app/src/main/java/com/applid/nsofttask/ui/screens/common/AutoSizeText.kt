@@ -25,7 +25,7 @@ fun AutoSizeText(
         style = scaledTextStyle,
         softWrap = false,
         onTextLayout = { textLayoutResult ->
-            if (textLayoutResult.didOverflowWidth) {
+            if (textLayoutResult.didOverflowWidth || textLayoutResult.didOverflowHeight) {
                 scaledTextStyle =
                     scaledTextStyle.copy(fontSize = scaledTextStyle.fontSize * 0.9)
             } else {

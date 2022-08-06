@@ -1,4 +1,4 @@
-package com.applid.nsofttask.ui.screens.navigation
+package com.applid.nsofttask.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType

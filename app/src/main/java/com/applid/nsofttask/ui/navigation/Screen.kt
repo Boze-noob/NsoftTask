@@ -1,4 +1,4 @@
-package com.applid.nsofttask.ui.screens.navigation
+package com.applid.nsofttask.ui.navigation
 
 sealed class Screen(val route : String) {
     object RepositoriesScreen : Screen("repositories_screen")

@@ -13,16 +13,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.applid.nsofttask.common.extensions.value
 import com.applid.nsofttask.domain.models.RepositoryModel
 import com.applid.nsofttask.ui.screens.common.CustomText
 import com.applid.nsofttask.ui.screens.common.AutoSizeText
 import com.applid.nsofttask.ui.screens.common.NetworkImage
-import com.applid.nsofttask.ui.screens.navigation.Screen
-import com.applid.nsofttask.ui.screens.repository_details_screen.viewModel.RepositoryDetailsViewModel
-import com.applid.nsofttask.ui.screens.repository_details_screen.viewModel.RepositoryDetailsEvent
+import com.applid.nsofttask.ui.navigation.Screen
 
 @Composable
 fun ListItem(
