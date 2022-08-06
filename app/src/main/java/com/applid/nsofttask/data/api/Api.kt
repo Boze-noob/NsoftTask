@@ -15,7 +15,7 @@ interface Api {
     suspend fun getRepositories(): RepositoryModelDto
 
     @GET("search/repositories")
-    suspend fun getRepositoriesByName(@Query("q") name : String) : RepositoryModelDto
+    suspend fun getRepositoriesByName(@Query("q", encoded = true) name : String) : RepositoryModelDto
 
     @GET("repos/{owner}/{name}")
     suspend fun getRepositoryDetails(

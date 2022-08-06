@@ -13,7 +13,7 @@ class GitHubRepositoryImpl @Inject constructor(private val api: Api) : GitHubRep
     }
 
     override suspend fun getRepositoriesByName(name: String): RepositoryModelDto {
-        return api.getRepositoriesByName(name = "helli+language:kotlin+in:name")
+        return api.getRepositoriesByName(name = "$name+language:kotlin+in:name")
     }
 
     override suspend fun getRepositoryDetails(owner : String, name : String): RepositoryDetailsModelDto {
