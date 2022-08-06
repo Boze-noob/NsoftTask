@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.applid.nsofttask.common.extensions.value
 import com.applid.nsofttask.domain.models.RepositoryDetailsModel
 import com.applid.nsofttask.ui.screens.common.CustomText
 
@@ -20,10 +21,10 @@ fun RepoInfo(
     CustomText(text = "Repository name: ${repositoryDetailsModel.name}")
     CustomText(text = "Description: ${repositoryDetailsModel.description}")
     CustomText(text = "Language: ${repositoryDetailsModel.language}")
-    CustomText(text = "Stargazers count: ${repositoryDetailsModel.stargazersCount}")
-    CustomText(text = "Forks count: ${repositoryDetailsModel.forksCount}")
-    CustomText(text = "Open issues: ${repositoryDetailsModel.openIssues}")
-    CustomText(text = "Watcher count: ${repositoryDetailsModel.watchersCount}")
+    CustomText(text = "Stargazers count: ${repositoryDetailsModel.stargazersCount.toString().value()}")
+    CustomText(text = "Forks count: ${repositoryDetailsModel.forksCount.toString().value()}")
+    CustomText(text = "Open issues: ${repositoryDetailsModel.openIssues.toString().value()}")
+    CustomText(text = "Watcher count: ${repositoryDetailsModel.watchersCount.toString().value()}")
     CustomText(text = "Default branch: ${repositoryDetailsModel.defaultBranch}")
     CustomText(text = "Created at: ${repositoryDetailsModel.createdAt}")
     CustomText(text = "Updated at: ${repositoryDetailsModel.updatedAt}")

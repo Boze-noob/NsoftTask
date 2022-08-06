@@ -28,10 +28,10 @@ fun RepositoryModelDto.toRepositoryModel() : List<RepositoryModel> {
         name = it.name.value(),
         description = it.description.value(),
         language = it.language.value(),
-        stargazersCount = it.stargazers_count.value(),
-        forksCount = it.forks_count.value(),
-        openIssues = it.open_issues.value(),
-        watchersCount = it.watchers_count.value()
+        stargazersCount = it.stargazers_count,
+        forksCount = it.forks_count,
+        openIssues = it.open_issues,
+        watchersCount = it.watchers_count
     )}
 
 }

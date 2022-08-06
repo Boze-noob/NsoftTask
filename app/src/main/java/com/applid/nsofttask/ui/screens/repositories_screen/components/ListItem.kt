@@ -15,6 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.applid.nsofttask.common.extensions.value
 import com.applid.nsofttask.domain.models.RepositoryModel
 import com.applid.nsofttask.ui.screens.common.CustomText
 import com.applid.nsofttask.ui.screens.common.AutoSizeText
@@ -87,9 +88,9 @@ fun RepositoryDetails(repositoryModel: RepositoryModel) {
     Spacer(modifier = Modifier.height(20.dp))
 
     CustomText(text = "Language: " + repositoryModel.language)
-    CustomText(text = "Stargazers: " + repositoryModel.stargazersCount.toString())
-    CustomText(text = "Forks: " + repositoryModel.forksCount.toString())
-    CustomText(text = "Issues: " + repositoryModel.openIssues.toString())
-    CustomText(text = "Watchers: " + repositoryModel.watchersCount.toString())
+    CustomText(text = "Stargazers: " + repositoryModel.stargazersCount.toString().value())
+    CustomText(text = "Forks: " + repositoryModel.forksCount.toString().value())
+    CustomText(text = "Issues: " + repositoryModel.openIssues.toString().value())
+    CustomText(text = "Watchers: " + repositoryModel.watchersCount.toString().value())
 }
 
