@@ -3,6 +3,7 @@ package com.applid.nsofttask.data.api
 import com.applid.nsofttask.data.api.dto.RepositoryContributorModelDto
 import com.applid.nsofttask.data.api.dto.RepositoryDetailsModelDto
 import com.applid.nsofttask.data.api.dto.RepositoryModelDto
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -23,5 +24,5 @@ interface Api {
     ): RepositoryDetailsModelDto
 
     @GET()
-    suspend fun getRepositoryContributors(@Url contributorsUrl: String): List<RepositoryContributorModelDto>
+    suspend fun getRepositoryContributors(@Url contributorsUrl: String): Response<List<RepositoryContributorModelDto>>
 }
