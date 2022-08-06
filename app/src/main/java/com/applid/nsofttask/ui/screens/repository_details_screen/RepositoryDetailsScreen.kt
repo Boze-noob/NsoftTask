@@ -96,9 +96,12 @@ fun RepositoryDetailsScreen(
                     Spacer(modifier = Modifier.height(15.dp))
                 }
 
-                if(repositoryDetailsModel.contributors.isEmpty()) {
+                if (repositoryDetailsModel.contributors.isEmpty()) {
                     item {
-                        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
                             CustomText(text = "No contributors", size = 18.sp)
                         }
                     }
@@ -110,7 +113,10 @@ fun RepositoryDetailsScreen(
 
                 item {
                     Spacer(modifier = Modifier.height(30.dp))
-                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
                         Button(
                             onClick = {
                                 uriHandler.openUri(repositoryDetailsModel.htmlUrl)

@@ -11,6 +11,11 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun CustomText(text: String, size: TextUnit = 14.sp, textAlign: TextAlign = TextAlign.Start, color : Color = Color.Black) {
+fun CustomText(
+    text: String,
+    size: TextUnit = 14.sp,
+    textAlign: TextAlign = TextAlign.Start,
+    color: Color = Color.Black
+) {
     Text(text = text, style = TextStyle(fontSize = size, color = color), textAlign = textAlign)
 }

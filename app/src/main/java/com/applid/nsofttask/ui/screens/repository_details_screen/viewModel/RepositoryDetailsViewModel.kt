@@ -25,36 +25,47 @@ class RepositoryDetailsViewModel @Inject constructor(
     val state: State<RepositoryDetailsState> = _state
 
     private val _uiEvent = Channel<UiEvent>()
-    val uiEvent  = _uiEvent.receiveAsFlow()
+    val uiEvent = _uiEvent.receiveAsFlow()
 
     init {
         var repositoryOwner: String? = null
         var repositoryName: String? = null
 
-        savedStateHandle.get<String>("owner")?.let { repositoryOwner = it
+        savedStateHandle.get<String>("owner")?.let {
+            repositoryOwner = it
         }
-        savedStateHandle.get<String>("name")?.let { repositoryName = it
+        savedStateHandle.get<String>("name")?.let {
+            repositoryName = it
         }
-        if(repositoryName != null && repositoryName != null) {
-            onEvent(RepositoryDetailsEvent.GetRepositoryDetails(owner = repositoryOwner!!, name = repositoryName!!))
+        if (repositoryName != null && repositoryName != null) {
+            onEvent(
+                RepositoryDetailsEvent.GetRepositoryDetails(
+                    owner = repositoryOwner!!,
+                    name = repositoryName!!
+                )
+            )
         }
     }
 
-    fun onEvent(event : RepositoryDetailsEvent) {
-        when(event) {
+    fun onEvent(event: RepositoryDetailsEvent) {
+        when (event) {
             is RepositoryDetailsEvent.GetRepositoryDetails -> getRepositoryDetails(event = event)
         }
     }
 
-    private fun getRepositoryDetails(event : RepositoryDetailsEvent.GetRepositoryDetails) {
+    private fun getRepositoryDetails(event: RepositoryDetailsEvent.GetRepositoryDetails) {
         getRepositoryDetailsUseCase(owner = event.owner, name = event.name).onEach { result ->
-            when(result) {
+            when (result) {
                 is Resource.Error -> {
-                    _state.value = RepositoryDetailsState(error = result.message ?: "An unexpected error happen", isLoading = false)
+                    _state.value = RepositoryDetailsState(
+                        error = result.message ?: "An unexpected error happen", isLoading = false
+                    )
                     viewModelScope.launch {
-                        sendUiEvent(UiEvent.ShowSnackBar(
-                            message = state.value.error
-                        ))
+                        sendUiEvent(
+                            UiEvent.ShowSnackBar(
+                                message = state.value.error
+                            )
+                        )
                         return@launch
                     }
                 }
@@ -62,7 +73,10 @@ class RepositoryDetailsViewModel @Inject constructor(
                     _state.value = RepositoryDetailsState(isLoading = true)
                 }
                 is Resource.Success -> {
-                    _state.value = RepositoryDetailsState(isLoading = false, repositoryDetailsModel = result.data)
+                    _state.value = RepositoryDetailsState(
+                        isLoading = false,
+                        repositoryDetailsModel = result.data
+                    )
                 }
             }
         }.launchIn(viewModelScope)

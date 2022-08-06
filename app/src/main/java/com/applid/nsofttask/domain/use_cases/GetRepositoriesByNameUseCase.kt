@@ -13,18 +13,30 @@ import javax.inject.Inject
 
 class GetRepositoriesByNameUseCase @Inject constructor(
     private val githubRepository: GitHubRepository
-){
-    operator fun invoke(name : String) : Flow<Resource<List<RepositoryModel>>> = flow {
-        try{
+) {
+    operator fun invoke(name: String): Flow<Resource<List<RepositoryModel>>> = flow {
+        try {
             emit(Resource.Loading<List<RepositoryModel>>())
             val result = githubRepository.getRepositoriesByName(name = name).toRepositoryModel()
             emit(Resource.Success<List<RepositoryModel>>(result))
-        } catch (e : HttpException) {
-            emit(Resource.Error<List<RepositoryModel>>(message = e.localizedMessage ?: "An unexpected error happen, try again later"))
-        } catch (e : IOException) {
-            emit(Resource.Error<List<RepositoryModel>>(message = e.localizedMessage ?: "Error happen, check your internet connection"))
-        } catch (e : UnknownHostException) {
-            emit(Resource.Error<List<RepositoryModel>>(message = e.localizedMessage ?: "Error happen, check your internet connection"))
+        } catch (e: HttpException) {
+            emit(
+                Resource.Error<List<RepositoryModel>>(
+                    message = e.localizedMessage ?: "An unexpected error happen, try again later"
+                )
+            )
+        } catch (e: IOException) {
+            emit(
+                Resource.Error<List<RepositoryModel>>(
+                    message = e.localizedMessage ?: "Error happen, check your internet connection"
+                )
+            )
+        } catch (e: UnknownHostException) {
+            emit(
+                Resource.Error<List<RepositoryModel>>(
+                    message = e.localizedMessage ?: "Error happen, check your internet connection"
+                )
+            )
         }
     }
 }

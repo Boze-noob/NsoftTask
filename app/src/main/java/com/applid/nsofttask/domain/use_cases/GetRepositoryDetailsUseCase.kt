@@ -1,11 +1,9 @@
 package com.applid.nsofttask.domain.use_cases
 
-import android.util.Log
 import com.applid.nsofttask.common.Resource
 import com.applid.nsofttask.data.api.dto.toRepositoryContributorModel
 import com.applid.nsofttask.data.api.dto.toRepositoryDetailsModel
 import com.applid.nsofttask.domain.models.RepositoryDetailsModel
-import com.applid.nsofttask.domain.models.RepositoryModel
 import com.applid.nsofttask.domain.repositories.GitHubRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

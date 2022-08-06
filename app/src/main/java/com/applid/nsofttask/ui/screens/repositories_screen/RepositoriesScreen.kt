@@ -50,13 +50,13 @@ fun RepositoriesScreen(
                 SnackBar(data = data)
             }
         },
-        topBar ={
+        topBar = {
             SearchBar(
                 onTextChange = { viewModel.searchTxt = it },
                 onCloseClicked = {
                     viewModel.searchTxt = ""
                     viewModel.onEvent(RepositoriesListEvent.Init)
-                                 },
+                },
                 onSearchClicked = { viewModel.onEvent(RepositoriesListEvent.GetByName) },
                 text = viewModel.searchTxt
             )

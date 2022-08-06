@@ -1,21 +1,17 @@
 package com.applid.nsofttask.ui.screens.repository_details_screen.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.applid.nsofttask.R
 import com.applid.nsofttask.domain.models.RepositoryDetailsModel
 import com.applid.nsofttask.ui.screens.common.CustomText
 import com.applid.nsofttask.ui.screens.common.NetworkImage
@@ -23,7 +19,7 @@ import com.applid.nsofttask.ui.screens.common.ScreenSize
 
 @Composable
 fun OwnerInfo(
-    repositoryDetailsModel : RepositoryDetailsModel
+    repositoryDetailsModel: RepositoryDetailsModel
 ) {
     val screenHeight = ScreenSize(LocalContext.current).getScreenHeight()
 
@@ -46,7 +42,11 @@ fun OwnerInfo(
                 NetworkImage(url = repositoryDetailsModel.avatarUrl)
             }
             Spacer(modifier = Modifier.height(8.dp))
-            CustomText(text = repositoryDetailsModel.login, textAlign = TextAlign.Center, size = 22.sp)
+            CustomText(
+                text = repositoryDetailsModel.login,
+                textAlign = TextAlign.Center,
+                size = 22.sp
+            )
         }
     }
 }

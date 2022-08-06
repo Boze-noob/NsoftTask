@@ -66,7 +66,7 @@ fun SearchBar(
             trailingIcon = {
                 IconButton(
                     onClick = {
-                            onCloseClicked()
+                        onCloseClicked()
                     }
                 ) {
                     Icon(

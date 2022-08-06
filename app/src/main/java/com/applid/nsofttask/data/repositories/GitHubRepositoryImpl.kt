@@ -16,13 +16,16 @@ class GitHubRepositoryImpl @Inject constructor(private val api: Api) : GitHubRep
         return api.getRepositoriesByName(name = "$name+language:kotlin+in:name")
     }
 
-    override suspend fun getRepositoryDetails(owner : String, name : String): RepositoryDetailsModelDto {
+    override suspend fun getRepositoryDetails(
+        owner: String,
+        name: String
+    ): RepositoryDetailsModelDto {
         return api.getRepositoryDetails(owner = owner, name = name)
     }
 
-    override suspend fun getRepositoryContributors(contributorsUrl : String): List<RepositoryContributorModelDto> {
+    override suspend fun getRepositoryContributors(contributorsUrl: String): List<RepositoryContributorModelDto> {
         val result = api.getRepositoryContributors(contributorsUrl = contributorsUrl).body()
-        if(result.isNullOrEmpty()) return emptyList()
+        if (result.isNullOrEmpty()) return emptyList()
         else return result
     }
 }

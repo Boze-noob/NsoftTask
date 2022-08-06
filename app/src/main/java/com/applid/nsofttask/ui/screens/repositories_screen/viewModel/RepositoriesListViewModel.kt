@@ -1,6 +1,5 @@
 package com.applid.nsofttask.ui.screens.repositories_screen.viewModel
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,7 +28,7 @@ class RepositoriesListViewModel @Inject constructor(
     val state: State<RepositoriesListState> = _state
 
     private val _uiEvent = Channel<UiEvent>()
-    val uiEvent  = _uiEvent.receiveAsFlow()
+    val uiEvent = _uiEvent.receiveAsFlow()
 
     var searchTxt by mutableStateOf("")
 
@@ -37,55 +36,66 @@ class RepositoriesListViewModel @Inject constructor(
         onEvent(RepositoriesListEvent.Init)
     }
 
-    fun onEvent(event : RepositoriesListEvent) {
-        when(event) {
+    fun onEvent(event: RepositoriesListEvent) {
+        when (event) {
             is RepositoriesListEvent.Init -> {
                 getAllRepositories()
             }
             is RepositoriesListEvent.GetByName -> {
-                Log.d("Tag", "We enter into get by name")
-                if(searchTxt.isNotEmpty())
-                getByName()
-                else sendUiEvent(UiEvent.ShowSnackBar(
-                    message = "Please enter text first!"
-                ))
+                if (searchTxt.isNotEmpty())
+                    getByName()
+                else sendUiEvent(
+                    UiEvent.ShowSnackBar(
+                        message = "Please enter text first!"
+                    )
+                )
             }
         }
     }
 
     private fun getAllRepositories() {
-       getAllRepositoriesUseCase().onEach { result ->
-           when(result) {
-               is Resource.Error -> {
-                   _state.value = RepositoriesListState(error = result.message ?: "An unexpected error happen", isLoading = false)
-                   viewModelScope.launch {
-                           sendUiEvent(UiEvent.ShowSnackBar(
-                               message = state.value.error
-                           ))
-                           return@launch
-                   }
-               }
-               is Resource.Loading -> _state.value = RepositoriesListState(isLoading = true)
-               is Resource.Success -> _state.value = RepositoriesListState(isLoading = false, repositoriesList = result.data)
-           }
-       }.launchIn(viewModelScope)
+        getAllRepositoriesUseCase().onEach { result ->
+            when (result) {
+                is Resource.Error -> {
+                    _state.value = RepositoriesListState(
+                        error = result.message ?: "An unexpected error happen", isLoading = false
+                    )
+                    viewModelScope.launch {
+                        sendUiEvent(
+                            UiEvent.ShowSnackBar(
+                                message = state.value.error
+                            )
+                        )
+                        return@launch
+                    }
+                }
+                is Resource.Loading -> _state.value = RepositoriesListState(isLoading = true)
+                is Resource.Success -> _state.value =
+                    RepositoriesListState(isLoading = false, repositoriesList = result.data)
+            }
+        }.launchIn(viewModelScope)
     }
 
     private fun getByName() {
 
         getRepositoriesByNameUseCase(name = searchTxt).onEach { result ->
-            when(result) {
+            when (result) {
                 is Resource.Error -> {
-                    _state.value = RepositoriesListState(error = result.message ?: "An unexpected error happen", isLoading = false)
+                    _state.value = RepositoriesListState(
+                        error = result.message ?: "An unexpected error happen", isLoading = false
+                    )
                     viewModelScope.launch {
-                        sendUiEvent(UiEvent.ShowSnackBar(
-                            message = state.value.error
-                        ))
+                        sendUiEvent(
+                            UiEvent.ShowSnackBar(
+                                message = state.value.error
+                            )
+                        )
                         return@launch
                     }
                 }
                 is Resource.Loading -> _state.value = RepositoriesListState(isLoading = true)
-                is Resource.Success -> _state.value = RepositoriesListState(isLoading = false, repositoriesList = result.data)
+                is Resource.Success -> _state.value =
+                    RepositoriesListState(isLoading = false, repositoriesList = result.data)
             }
         }.launchIn(viewModelScope)
     }
