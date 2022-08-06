@@ -96,8 +96,16 @@ fun RepositoryDetailsScreen(
                     Spacer(modifier = Modifier.height(15.dp))
                 }
 
-                items(repositoryDetailsModel.contributors) {
-                    ContributorItem(repositoryContributorModel = it)
+                if(repositoryDetailsModel.contributors.isEmpty()) {
+                    item {
+                        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                            CustomText(text = "No contributors", size = 18.sp)
+                        }
+                    }
+                } else {
+                    items(repositoryDetailsModel.contributors) {
+                        ContributorItem(repositoryContributorModel = it)
+                    }
                 }
 
                 item {

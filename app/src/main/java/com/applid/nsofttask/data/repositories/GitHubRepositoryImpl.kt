@@ -13,7 +13,7 @@ class GitHubRepositoryImpl @Inject constructor(private val api: Api) : GitHubRep
     }
 
     override suspend fun getRepositoriesByName(name: String): RepositoryModelDto {
-        return api.getRepositoriesByName(name = "$name+language:kotlin+in:name,description")
+        return api.getRepositoriesByName(name = "helli+language:kotlin+in:name")
     }
 
     override suspend fun getRepositoryDetails(owner : String, name : String): RepositoryDetailsModelDto {
@@ -21,8 +21,8 @@ class GitHubRepositoryImpl @Inject constructor(private val api: Api) : GitHubRep
     }
 
     override suspend fun getRepositoryContributors(contributorsUrl : String): List<RepositoryContributorModelDto> {
-        return api.getRepositoryContributors(contributorsUrl = contributorsUrl)
+        val result = api.getRepositoryContributors(contributorsUrl = contributorsUrl).body()
+        if(result.isNullOrEmpty()) return emptyList()
+        else return result
     }
-
-
 }
