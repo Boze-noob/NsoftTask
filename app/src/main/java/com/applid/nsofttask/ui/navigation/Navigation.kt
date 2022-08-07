@@ -32,7 +32,7 @@ fun Navigation() {
 
             )
         ) {
-            RepositoryDetailsScreen()
+            RepositoryDetailsScreen(navController = navController)
         }
     }
 }

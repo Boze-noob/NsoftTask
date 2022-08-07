@@ -1,4 +1,4 @@
-package com.applid.nsofttask.ui.screens.repositories_screen.components
+package com.applid.nsofttask.ui.screens.common
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,7 +28,7 @@ fun SearchBar(
             .fillMaxWidth()
             .height(56.dp),
         elevation = AppBarDefaults.TopAppBarElevation,
-        color = MaterialTheme.colors.primary
+        color = MaterialTheme.colors.primaryVariant
     ) {
         TextField(modifier = Modifier
             .fillMaxWidth(),

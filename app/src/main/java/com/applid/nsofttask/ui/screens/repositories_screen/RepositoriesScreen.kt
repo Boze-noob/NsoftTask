@@ -19,7 +19,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.applid.nsofttask.ui.screens.common.*
 import com.applid.nsofttask.ui.screens.repositories_screen.components.ListItem
-import com.applid.nsofttask.ui.screens.repositories_screen.components.SearchBar
 import com.applid.nsofttask.ui.screens.repositories_screen.viewModel.RepositoriesListEvent
 import com.applid.nsofttask.ui.screens.repositories_screen.viewModel.RepositoriesListViewModel
 

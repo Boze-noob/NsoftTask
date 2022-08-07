@@ -9,9 +9,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import com.applid.nsofttask.ui.theme.*
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.applid.nsofttask.common.extensions.value
@@ -33,6 +36,7 @@ fun ListItem(
             .clickable {
                 navController.navigate(Screen.RepositoryDetailsScreen.route + "?owner=${repositoryModel.login}&name=${repositoryModel.name}")
             },
+        shape = CutCornerShape(topStart = 20.dp, bottomEnd = 20.dp),
         elevation = 10.dp
     ) {
         Row(
@@ -60,8 +64,10 @@ fun ListItem(
 
 @Composable
 fun OwnerInfo(repositoryModel: RepositoryModel) {
+    val lightGray = LightGray
+
     Card(
-        modifier = Modifier.size(80.dp),
+        modifier = Modifier.size(85.dp),
         border = BorderStroke(3.dp, MaterialTheme.colors.secondaryVariant),
         shape = CircleShape,
         elevation = 2.dp,
@@ -70,24 +76,47 @@ fun OwnerInfo(repositoryModel: RepositoryModel) {
         NetworkImage(url = repositoryModel.avatarUrl)
     }
     Spacer(modifier = Modifier.height(8.dp))
-    AutoSizeText(text = repositoryModel.login, textStyle = TextStyle(fontSize = 18.sp))
+    AutoSizeText(
+        text = repositoryModel.login,
+        textStyle = TextStyle(
+            fontSize = 22.sp,
+            fontFamily = MaterialTheme.typography.body1.fontFamily
+        )
+    )
 
+    Spacer(modifier = Modifier.height(15.dp))
+    CustomText(text = "Repo name:", size = 13.sp, color = lightGray)
+    CustomText(text = repositoryModel.name, size = 18.sp)
 }
 
 @Composable
 fun RepositoryDetails(repositoryModel: RepositoryModel) {
-    CustomText(text = "Repo name:", size = 18.sp)
-    CustomText(text = repositoryModel.name)
-    Spacer(modifier = Modifier.height(8.dp))
-    CustomText(text = "Description:", size = 17.sp)
-    CustomText(text = repositoryModel.description, textAlign = TextAlign.Center)
 
-    Spacer(modifier = Modifier.height(20.dp))
+    val lightGray = Color(0xFF949393)
 
-    CustomText(text = "Language: " + repositoryModel.language)
-    CustomText(text = "Stargazers: " + repositoryModel.stargazersCount.toString().value())
-    CustomText(text = "Forks: " + repositoryModel.forksCount.toString().value())
-    CustomText(text = "Issues: " + repositoryModel.openIssues.toString().value())
-    CustomText(text = "Watchers: " + repositoryModel.watchersCount.toString().value())
+    CustomText(text = "Description:", size = 13.sp, color = lightGray)
+    CustomText(text = repositoryModel.description, textAlign = TextAlign.Center, size = 16.sp, maxNumberOfLines = 4)
+    Spacer(modifier = Modifier.height(18.dp))
+    CustomText(text = "Language: " + repositoryModel.language, color = lightGray, size = 12.sp)
+    CustomText(
+        text = "Stargazers: " + repositoryModel.stargazersCount.toString().value(),
+        color = lightGray,
+        size = 12.sp
+    )
+    CustomText(
+        text = "Forks: " + repositoryModel.forksCount.toString().value(),
+        color = lightGray,
+        size = 12.sp
+    )
+    CustomText(
+        text = "Issues: " + repositoryModel.openIssues.toString().value(),
+        color = lightGray,
+        size = 12.sp
+    )
+    CustomText(
+        text = "Watchers: " + repositoryModel.watchersCount.toString().value(),
+        color = lightGray,
+        size = 12.sp
+    )
 }
 

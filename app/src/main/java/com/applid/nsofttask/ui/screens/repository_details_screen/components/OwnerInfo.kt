@@ -15,35 +15,48 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.applid.nsofttask.domain.models.RepositoryDetailsModel
 import com.applid.nsofttask.ui.screens.common.AutoSizeText
+import com.applid.nsofttask.ui.screens.common.CustomText
 import com.applid.nsofttask.ui.screens.common.NetworkImage
 import com.applid.nsofttask.ui.screens.common.ScreenSize
+import com.applid.nsofttask.ui.theme.*
 
 @Composable
 fun OwnerInfo(
     repositoryDetailsModel: RepositoryDetailsModel
 ) {
     val screenHeight = ScreenSize(LocalContext.current).getScreenHeight()
+    val lightGray = LightGray
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height((screenHeight / 3.5).dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+            .height((screenHeight / 10).dp),
+
         ) {
-            Card(
-                modifier = Modifier.size((screenHeight / 5).dp),
-                border = BorderStroke(3.dp, MaterialTheme.colors.secondaryVariant),
-                shape = CircleShape,
-                elevation = 2.dp,
-            )
-            {
-                NetworkImage(url = repositoryDetailsModel.avatarUrl)
+        Column {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Card(
+                    modifier = Modifier.size((screenHeight / 12).dp),
+                    border = BorderStroke(3.dp, MaterialTheme.colors.secondaryVariant),
+                    shape = CircleShape,
+                    elevation = 2.dp,
+                )
+                {
+                    NetworkImage(url = repositoryDetailsModel.avatarUrl)
+                }
+                Spacer(modifier = Modifier.width(10.dp))
+                Column() {
+                    CustomText(text = "Owner name:", color = lightGray, size = 13.sp)
+                    AutoSizeText(
+                        text = repositoryDetailsModel.login,
+                        textStyle = TextStyle(
+                            textAlign = TextAlign.Center,
+                            fontSize = 21.sp,
+                            fontFamily = MaterialTheme.typography.body1.fontFamily
+                        )
+                    )
+                }
             }
-            Spacer(modifier = Modifier.height(8.dp))
-            AutoSizeText(text = repositoryDetailsModel.login, textStyle = TextStyle(textAlign = TextAlign.Center, fontSize = 22.sp))
         }
     }
 }

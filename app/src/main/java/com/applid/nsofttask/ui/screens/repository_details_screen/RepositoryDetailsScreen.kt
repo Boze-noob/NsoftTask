@@ -1,10 +1,14 @@
 package com.applid.nsofttask.ui.screens.repository_details_screen
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -12,21 +16,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.applid.nsofttask.ui.screens.common.CustomText
-import com.applid.nsofttask.ui.screens.common.ScreenSize
-import com.applid.nsofttask.ui.screens.common.SnackBar
-import com.applid.nsofttask.ui.screens.common.UiEvent
+import androidx.navigation.NavController
+import com.applid.nsofttask.ui.screens.common.*
 import com.applid.nsofttask.ui.screens.repository_details_screen.components.ContributorItem
 import com.applid.nsofttask.ui.screens.repository_details_screen.components.OwnerInfo
 import com.applid.nsofttask.ui.screens.repository_details_screen.components.RepoInfo
 import com.applid.nsofttask.ui.screens.repository_details_screen.viewModel.RepositoryDetailsViewModel
+import com.applid.nsofttask.ui.theme.*
+
 
 @Composable
 fun RepositoryDetailsScreen(
     viewModel: RepositoryDetailsViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     val state = viewModel.state.value
     val uriHandler = LocalUriHandler.current
@@ -52,6 +58,14 @@ fun RepositoryDetailsScreen(
                 SnackBar(data = data)
             }
         },
+        topBar = {
+            AppBar(
+                title = "Repository details",
+                leadingIcon = Icons.Default.ArrowBack,
+                onLeadingIconClick = {
+                    navController.navigateUp()
+                })
+        }
     ) {
         if (state.isLoading) {
             Box(
@@ -77,23 +91,24 @@ fun RepositoryDetailsScreen(
             }
         } else {
             val repositoryDetailsModel = state.repositoryDetailsModel
-            LazyColumn {
+            val dividerColor = MaterialTheme.colors.primaryVariant
+            LazyColumn(modifier = Modifier.padding(horizontal = 5.dp)) {
 
                 item {
+                    Spacer(modifier = Modifier.height(30.dp))
                     OwnerInfo(repositoryDetailsModel = repositoryDetailsModel)
                     Spacer(modifier = Modifier.height(20.dp))
-                    Divider(color = Color.Blue, thickness = 1.dp)
                 }
 
                 item {
                     RepoInfo(repositoryDetailsModel = repositoryDetailsModel)
                     Spacer(modifier = Modifier.height(20.dp))
-                    Divider(color = Color.Blue, thickness = 1.dp)
+                    Divider(color = dividerColor, thickness = 1.dp)
                 }
 
                 item {
                     CustomText(text = "Contributors", size = 20.sp)
-                    Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.height(5.dp))
                 }
 
                 if (repositoryDetailsModel.contributors.isEmpty()) {
@@ -106,24 +121,39 @@ fun RepositoryDetailsScreen(
                         }
                     }
                 } else {
-                    items(repositoryDetailsModel.contributors) {
-                        ContributorItem(repositoryContributorModel = it)
+                    item {
+                        LazyRow {
+                            items(repositoryDetailsModel.contributors) {
+                                ContributorItem(repositoryContributorModel = it)
+                            }
+                        }
                     }
                 }
 
                 item {
-                    Spacer(modifier = Modifier.height(30.dp))
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 30.dp),
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Button(
                             onClick = {
                                 uriHandler.openUri(repositoryDetailsModel.htmlUrl)
                             },
-                            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+                            border = BorderStroke(1.dp, DarkBlue),
+                            colors = ButtonDefaults.outlinedButtonColors(
+                                backgroundColor = Color.Transparent
+                            )
                         ) {
-                            CustomText(text = "Go to github", color = Color.Black, size = 20.sp)
+                            AutoSizeText(
+                                text = "Go to github",
+                                textStyle = TextStyle(
+                                    color = Color.Black,
+                                    fontSize = 20.sp,
+                                    fontFamily = MaterialTheme.typography.body1.fontFamily
+                                )
+                            )
                         }
                     }
                 }
@@ -131,3 +161,5 @@ fun RepositoryDetailsScreen(
         }
     }
 }
+
+
