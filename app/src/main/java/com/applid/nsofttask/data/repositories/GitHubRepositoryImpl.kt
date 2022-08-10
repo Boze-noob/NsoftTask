@@ -24,8 +24,6 @@ class GitHubRepositoryImpl @Inject constructor(private val api: Api) : GitHubRep
     }
 
     override suspend fun getRepositoryContributors(contributorsUrl: String): List<RepositoryContributorModelDto> {
-        val result = api.getRepositoryContributors(contributorsUrl = contributorsUrl).body()
-        if (result.isNullOrEmpty()) return emptyList()
-        else return result
+        return api.getRepositoryContributors(contributorsUrl = contributorsUrl).body() ?: emptyList()
     }
 }
